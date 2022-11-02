@@ -11,6 +11,11 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "sass": "^1.55.0",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -34,8 +39,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "sass": "^1.55.0"
   }
+
 }
