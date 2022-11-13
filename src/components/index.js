@@ -3,6 +3,7 @@ export * from "./appHeader/AppHeader";
 export * from "./charInfo/CharInfo";
 export * from "./charList/CharList";
 export * from "./comicsList/ComicsList";
+export * from "./errorMessage/ErrorMessage";
 export * from "./randomChar/RandomChar";
 export * from "./singleComic/SingleComic";
 export * from "./skeleton/Skeleton";
