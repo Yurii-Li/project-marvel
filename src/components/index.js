@@ -6,3 +6,4 @@ export * from "./comicsList/ComicsList";
 export * from "./randomChar/RandomChar";
 export * from "./singleComic/SingleComic";
 export * from "./skeleton/Skeleton";
+export * from "./spinner/Spinner";
