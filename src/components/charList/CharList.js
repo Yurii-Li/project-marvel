@@ -1,74 +1,62 @@
 import { Component } from "react";
 
 import { MarvelService } from "../../services";
-import {ErrorMessage} from "../errorMessage/ErrorMessage";
-import {Spinner} from "../spinner/Spinner";
+import { ErrorMessage } from "../errorMessage/ErrorMessage";
+import { Spinner } from "../spinner/Spinner";
 import "./charList.scss";
 
 class CharList extends Component {
-
     state = {
         charList: [],
         loading: true,
-        error: false
-    }
+        error: false,
+    };
 
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService.getAllCharacters()
-            .then(this.onCharListLoaded)
-            .catch(this.onError)
+        this.marvelService.getAllCharacters().then(this.onCharListLoaded).catch(this.onError);
     }
 
     onCharListLoaded = (charList) => {
         this.setState({
             charList,
-            loading: false
-        })
-    }
+            loading: false,
+        });
+    };
 
     onError = () => {
         this.setState({
             error: true,
-            loading: false
-        })
-    }
-
+            loading: false,
+        });
+    };
 
     renderItems(arr) {
-        const items =  arr.map((item) => {
-            let imgStyle = {'objectFit' : 'cover'};
-            if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-                imgStyle = {'objectFit' : 'unset'};
+        const items = arr.map((item) => {
+            let imgStyle = { objectFit: "cover" };
+            if (item.thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
+                imgStyle = { objectFit: "unset" };
             }
 
             return (
-                <li
-                    className="char__item"
-                    key={item.id}>
-                    <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                <li className="char__item" key={item.id} onClick={()=> this.props.onCharSelected(item.id)}>
+                    <img src={item.thumbnail} alt={item.name} style={imgStyle} />
                     <div className="char__name">{item.name}</div>
                 </li>
-
-            )
+            );
         });
 
-        return (
-            <ul className="char__grid">
-                {items}
-            </ul>
-        )
+        return <ul className="char__grid">{items}</ul>;
     }
 
     render() {
-
-        const {charList, loading, error} = this.state;
+        const { charList, loading, error } = this.state;
 
         const items = this.renderItems(charList);
 
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
+        const errorMessage = error ? <ErrorMessage /> : null;
+        const spinner = loading ? <Spinner /> : null;
         const content = !(loading || error) ? items : null;
 
         return (
@@ -80,7 +68,7 @@ class CharList extends Component {
                     <div className="inner">load more</div>
                 </button>
             </div>
-        )
+        );
     }
 }
 
