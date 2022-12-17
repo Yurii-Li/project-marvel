@@ -1,10 +1,10 @@
 import { Component } from "react";
-import "./randomChar.scss";
 
-import mjolnir from "../../resources/img/mjolnir.png";
-import { MarvelService } from "../../services";
 import { Spinner } from "../spinner/Spinner";
 import {ErrorMessage} from "../errorMessage/ErrorMessage";
+import { MarvelService } from "../../services";
+import mjolnir from "../../resources/img/mjolnir.png";
+import "./randomChar.scss";
 
 class RandomChar extends Component {
     state = {
@@ -17,7 +17,6 @@ class RandomChar extends Component {
 
     componentDidMount() {
         this.updateChar();
-        // this.timerId = setInterval(this.updateChar, 3000);
     }
 
     componentWillUnmount() {
