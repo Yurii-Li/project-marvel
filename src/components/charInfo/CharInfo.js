@@ -1,9 +1,11 @@
-import "./charInfo.scss";
-import { MarvelService } from "../../services";
 import { Component } from "react";
+import PropTypes from "prop-types";
+
+import { MarvelService } from "../../services";
 import { ErrorMessage } from "../errorMessage/ErrorMessage";
 import { Spinner } from "../spinner/Spinner";
 import { Skeleton } from "../skeleton/Skeleton";
+import "./charInfo.scss";
 
 class CharInfo extends Component {
     state = {
@@ -108,5 +110,12 @@ const View = ({ char }) => {
         </>
     );
 };
+
+// CharInfo це в даному випадку назва компоненту до нього додаємо статичну властивість propTypes
+CharInfo.propTypes = {
+    // Далі описуємо які пропси має наш компонент(потрібно валідувати) і якого типу вони мають бути
+    // Як приклад charId - це назва пропси яка приходить в компонент, а PropTypes.number - це тип який має бути в пропси
+    charId: PropTypes.number,
+}
 
 export { CharInfo };
