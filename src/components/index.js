@@ -5,9 +5,10 @@ export * from "./charList/CharList";
 export * from "./comicsList/ComicsList";
 export * from "./errorBoundary/ErrorBoundary";
 export * from "./errorMessage/ErrorMessage";
-export * from "./pages/MainPage";
-export * from "./pages/ComicsPage";
+export * from './pages/singleComicPage/SingleComicPage'
+export * from './pages/ComicsPage'
+export * from './pages/MainPage'
+export * from './pages/page404/Page404'
 export * from "./randomChar/RandomChar";
-export * from "./singleComic/SingleComic";
 export * from "./skeleton/Skeleton";
 export * from "./spinner/Spinner";
