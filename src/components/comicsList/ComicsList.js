@@ -1,47 +1,45 @@
-import './comicsList.scss';
-import uw from '../../resources/img/UW.png';
-import xMen from '../../resources/img/x-men.png';
+import "./comicsList.scss";
 import { useEffect, useState } from "react";
 import { useMarvelService } from "../../services";
-import { CharList } from "../charList/CharList";
 import { ErrorMessage } from "../errorMessage/ErrorMessage";
 import { Spinner } from "../spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const ComicsList = () => {
 
-    const [comicsList, setComicsList] = useState([])
+    const [comicsList, setComicsList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offSet, setOffSet] = useState(0);
-    const [comicsEnded, setComicsEnded] = useState(false)
+    const [comicsEnded, setComicsEnded] = useState(false);
 
-    const {loading,error,getAllComics} = useMarvelService();
+    const { loading, error, getAllComics } = useMarvelService();
 
-    useEffect(()=>{
-        onRequest(offSet, true)
-    },[])
+    useEffect(() => {
+        onRequest(offSet, true);
+    }, []);
 
-    const onRequest = (offSet, initial)=>{
+    const onRequest = (offSet, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
-        getAllComics(offSet).then(onComicsListLoaded)
-    }
+        getAllComics(offSet).then(onComicsListLoaded);
+    };
 
-    const onComicsListLoaded = (newComicsList) =>{
-        let ended = false
+    const onComicsListLoaded = (newComicsList) => {
+        let ended = false;
 
-        if(newComicsList.length < 8){
-            ended= true
+        if (newComicsList.length < 8) {
+            ended = true;
         }
 
-        setComicsList(comicsList => [...comicsList, ...newComicsList])
-        setNewItemLoading(newItemLoading => false)
-        setOffSet(offSet + 8)
-        setComicsEnded(comicsEnded => ended)
+        setComicsList(comicsList => [...comicsList, ...newComicsList]);
+        setNewItemLoading(newItemLoading => false);
+        setOffSet(offSet + 8);
+        setComicsEnded(comicsEnded => ended);
 
-    }
+    };
 
     function renderItems(arr) {
 
-        const items = arr.map((item, i)=>{
+        const items = arr.map((item, i) => {
             let imgStyle = { objectFit: "cover" };
             if (item.thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
                 imgStyle = { objectFit: "unset" };
@@ -49,33 +47,34 @@ const ComicsList = () => {
 
             return (
                 <li className="comics__item" key={i}>
-                    <a href="#">
-                        <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" style={imgStyle}/>
+                    <Link to={`/comics/${item.id}`}>
+                        <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" style={imgStyle} />
                         <div className="comics__item-name">{item.title}</div>
                         <div className="comics__item-price">{item.price}</div>
-                    </a>
+                    </Link>
                 </li>
-            )
-        })
+            );
+        });
 
-        return <ul className="comics__grid">{items}</ul>
+        return <ul className="comics__grid">{items}</ul>;
     }
 
     const items = renderItems(comicsList);
 
-    const errorMessage = error ? <ErrorMessage/> : null
-    const spinner = loading && !newItemLoading ? <Spinner/> : null
+    const errorMessage = error ? <ErrorMessage /> : null;
+    const spinner = loading && !newItemLoading ? <Spinner /> : null;
 
     return (
         <div className="comics__list">
             {errorMessage}
             {spinner}
             {items}
-            <button className="button button__main button__long" disabled={newItemLoading} onClick={()=> onRequest(offSet)} style={{display : comicsEnded ? "none" : "block"}}>
+            <button className="button button__main button__long" disabled={newItemLoading} onClick={() => onRequest(offSet)}
+                    style={{ display: comicsEnded ? "none" : "block" }}>
                 <div className="inner">load more</div>
             </button>
         </div>
-    )
-}
+    );
+};
 
-export  {ComicsList};
+export { ComicsList };
