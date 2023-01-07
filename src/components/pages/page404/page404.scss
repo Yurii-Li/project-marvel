@@ -1,0 +1,21 @@
+@import "../../../style/variables";
+
+.page-404 {
+  &__text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  &__link {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 30px;
+    transition: color 0.3s linear;
+    &:hover {
+      color: $main-color;
+    }
+  }
+}
