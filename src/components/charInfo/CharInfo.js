@@ -6,6 +6,7 @@ import { ErrorMessage } from "../errorMessage/ErrorMessage";
 import { Spinner } from "../spinner/Spinner";
 import { Skeleton } from "../skeleton/Skeleton";
 import "./charInfo.scss";
+import { Link } from "react-router-dom";
 
 const CharInfo = (props) => {
 
@@ -86,12 +87,10 @@ const View = ({ char }) => {
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
                 {comics.length === 0 ? "There is no comics with this character" : comics.slice(0, 10).map((item, i) => (
-                    <li className="char__comics-item" key={i}>
-                        {item.name}
-                    </li>
+                        <Link to={`/comics/${item.resourceURI.split("/").pop()}`} className="char__comics-item" key={i}>
+                                {item.name}
+                        </Link>
                 ))}
-
-
             </ul>
         </>
     );
