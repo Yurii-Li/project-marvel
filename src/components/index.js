@@ -2,12 +2,15 @@ export * from "./appBanner/AppBanner";
 export * from "./appHeader/AppHeader";
 export * from "./charInfo/CharInfo";
 export * from "./charList/CharList";
+export * from "./charSearchForm/CharSearchForm";
 export * from "./comicsList/ComicsList";
 export * from "./errorBoundary/ErrorBoundary";
 export * from "./errorMessage/ErrorMessage";
-export * from './pages/singleComicPage/SingleComicPage'
+export * from "./pages/singleCharacterLayout/SingleCharacterLayout"
+export * from './pages/singleComicLayout/SingleComicLayout'
 export * from './pages/ComicsPage'
 export * from './pages/MainPage'
+export * from './pages/SinglePage'
 export * from './pages/page404/Page404'
 export * from "./randomChar/RandomChar";
 export * from "./skeleton/Skeleton";
