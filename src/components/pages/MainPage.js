@@ -5,6 +5,7 @@ import { CharList } from "../charList/CharList";
 import { CharInfo } from "../charInfo/CharInfo";
 import decoration from "../../resources/img/vision.png";
 import { CharSearchForm } from "../charSearchForm/CharSearchForm";
+import { Helmet } from "react-helmet";
 
 const MainPage = () => {
 
@@ -15,24 +16,33 @@ const MainPage = () => {
 
     return (
         <>
-                <ErrorBoundary>
-                    <RandomChar />
-                </ErrorBoundary>
-                <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onCharSelected={onCharSelected} />
-                    </ErrorBoundary>
+            {/*В верху нашої сторінки створюємо компонент <Helmet> і в ньому вказуємо потрібні нам параметри як в звичайному html тегу <head>*/}
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Marvel information portal"
+                />
+                <title>Marvel information portal</title>
+            </Helmet>
 
-                    <div>
-                        <ErrorBoundary>
-                            <CharInfo charId={selectedChar} />
-                        </ErrorBoundary>
-                        <ErrorBoundary>
-                            <CharSearchForm />
-                        </ErrorBoundary>
-                    </div>
+            <ErrorBoundary>
+                <RandomChar />
+            </ErrorBoundary>
+            <div className="char__content">
+                <ErrorBoundary>
+                    <CharList onCharSelected={onCharSelected} />
+                </ErrorBoundary>
+
+                <div>
+                    <ErrorBoundary>
+                        <CharInfo charId={selectedChar} />
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <CharSearchForm />
+                    </ErrorBoundary>
                 </div>
-                <img className="bg-decoration" src={decoration} alt="vision" />
+            </div>
+            <img className="bg-decoration" src={decoration} alt="vision" />
         </>
     );
 };
