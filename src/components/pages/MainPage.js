@@ -16,7 +16,6 @@ const MainPage = () => {
 
     return (
         <>
-            {/*В верху нашої сторінки створюємо компонент <Helmet> і в ньому вказуємо потрібні нам параметри як в звичайному html тегу <head>*/}
             <Helmet>
                 <meta
                     name="description"
