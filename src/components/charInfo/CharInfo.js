@@ -2,20 +2,16 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import { useMarvelService } from "../../services";
-import { ErrorMessage } from "../errorMessage/ErrorMessage";
-import { Spinner } from "../spinner/Spinner";
-import { Skeleton } from "../skeleton/Skeleton";
 import "./charInfo.scss";
 import { Link } from "react-router-dom";
+import { setContent } from "../../utils";
 
 const CharInfo = (props) => {
 
 
     const [char, setChar] = useState(null);
 
-
-
-    const {loading,error,clearError,getCharacter} = useMarvelService()
+    const { clearError, getCharacter, process, setProcess } = useMarvelService();
 
 
     useEffect(() => {
@@ -31,7 +27,7 @@ const CharInfo = (props) => {
         }
 
         clearError();
-        getCharacter(charId).then(onCharLoaded);
+        getCharacter(charId).then(onCharLoaded).then(()=> setProcess("confirmed"));
     };
 
     const onCharLoaded = (char) => {
@@ -39,26 +35,17 @@ const CharInfo = (props) => {
     };
 
 
-
-
-    const skeleton = char || loading || error ? null : <Skeleton />;
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !char) ? <View char={char} /> : null;
-
     return (
         <div className="char__info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+            {
+                setContent(process, View, char)
+            }
         </div>
     );
-
 };
 
-const View = ({ char }) => {
-    const { name, description, thumbnail, homepage, wiki, comics } = char;
+const View = ({ data }) => {
+    const { name, description, thumbnail, homepage, wiki, comics } = data;
 
 
     let imgStyle = { "objectFit": "cover" };
@@ -87,9 +74,9 @@ const View = ({ char }) => {
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
                 {comics.length === 0 ? "There is no comics with this character" : comics.slice(0, 10).map((item, i) => (
-                        <Link to={`/comics/${item.resourceURI.split("/").pop()}`} className="char__comics-item" key={i}>
-                                {item.name}
-                        </Link>
+                    <Link to={`/comics/${item.resourceURI.split("/").pop()}`} className="char__comics-item" key={i}>
+                        {item.name}
+                    </Link>
                 ))}
             </ul>
         </>

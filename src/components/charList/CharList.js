@@ -7,6 +7,21 @@ import { ErrorMessage } from "../errorMessage/ErrorMessage";
 import { Spinner } from "../spinner/Spinner";
 import "./charList.scss";
 
+const setContent = (process, Component, newItemsLoading) => {
+    switch (process) {
+        case "waiting":
+            return <Spinner />;
+        case "loading":
+            return newItemsLoading ? <Component/> : <Spinner />;
+        case "confirmed":
+            return <Component/>;
+        case "error":
+            return <ErrorMessage />;
+        default:
+            throw new Error("Unexpected process state");
+    }
+};
+
 
 const CharList = (props) => {
 
@@ -15,7 +30,7 @@ const CharList = (props) => {
     const [offSet, setOffSet] = useState(0);
     const [charEnded, setCharEnded] = useState(false);
 
-    const { getAllCharacters, loading, error } = useMarvelService();
+    const { getAllCharacters, process,setProcess } = useMarvelService();
 
     useEffect(() => {
         onRequest(offSet, true);
@@ -23,7 +38,7 @@ const CharList = (props) => {
 
     const onRequest = (offSet, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
-        getAllCharacters(offSet).then(onCharListLoaded);
+        getAllCharacters(offSet).then(onCharListLoaded).then(()=> setProcess("confirmed"));
     };
 
 
@@ -83,17 +98,12 @@ const CharList = (props) => {
         )
     }
 
-    const items = renderItems(charList);
-
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading && !newItemLoading ? <Spinner /> : null;
-
 
     return (
         <div className="char__list">
-            {errorMessage}
-            {spinner}
-            {items}
+            {
+                setContent(process, ()=> renderItems(charList), newItemLoading )
+            }
             <button
                 className="button button__main button__long"
                 disabled={newItemLoading}
