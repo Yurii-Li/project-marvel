@@ -58,7 +58,6 @@ const useMarvelService = () => {
         }
     }
 
-    //  І експортувати ось тут
     return {
         process,
         setProcess,
